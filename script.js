@@ -13,9 +13,30 @@ async function fetchData(url) {
 	console.log("finishing fetchData")
 }
 
+function makeHtmlFromCurrencies(currencies) {
+	const currencyKeys = Object.keys(currencies)
+
+	currencyHtml = ""
+	
+	currencyKeys.forEach(currencyKey => currencyHtml += `
+		<li>
+			${currencyKey}
+			${currencies[currencyKey].name}
+			${currencies[currencyKey].symbol}
+		</li>
+	`)
+
+	return `<ol>${currencyHtml}</ol>`
+}
+
+/* Object.keys(countryData.currencies).map(currName => `${countryData.currencies[currName].name} ${currName} ${countryData.currencies[currName].symbol}`) */
+
 function makeHtmlFromCountryData(countryData) {
 	return `
-		<li>${countryData.name.common}</li>
+		<li>
+			<h3>${countryData.name.common}<h3>
+			<p>currencies: ${countryData.currencies ? makeHtmlFromCurrencies(countryData.currencies) : "has no official currencies"}</p>
+		</li>
 	`
 }
 
@@ -29,9 +50,9 @@ async function init() {
 
 	countriesHtml = ""
 
-	countriesData.forEach(countryData => {
+	countriesData.forEach((countryData) => {
 		countryHtml = makeHtmlFromCountryData(countryData)
-		console.log(countryHtml)
+		// console.log(countryHtml)
 		countriesHtml += countryHtml
 	});
 
