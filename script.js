@@ -1,5 +1,16 @@
 console.log('loaded')
 
+console.log(window.location)
+console.log(new URLSearchParams(window.location.search).get("callingCode"))
+const callingCode = new URLSearchParams(window.location.search).get("callingCode")
+
+if (callingCode) {
+	console.log(`fetch: https://countryapi.io/api/callingcode/${callingCode}`)
+} else {
+	console.log("fetch all countries data")
+}
+//kell majd fetch-elni is!
+
 const rootElement = document.querySelector("#root")
 rootElement.insertAdjacentHTML("beforeend", "loaded")
 
@@ -46,7 +57,7 @@ function renderHtmlToDom(html) {
 
 async function init() {
 	const countriesData = await fetchData("https://restcountries.com/v3.1/all")
-	console.log(countriesData)
+	// console.log(countriesData)
 
 	countriesHtml = ""
 
@@ -59,9 +70,9 @@ async function init() {
 	renderHtmlToDom(countriesHtml)
 
 	const deutschlandData = await fetchData("https://restcountries.com/v3.1/name/deutschland")
-	console.log(deutschlandData)
+	// console.log(deutschlandData)
 }
 
 init()
 
-console.log("teszt")
+// console.log("teszt")
